@@ -10,17 +10,24 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('employees', function (Blueprint $table) {
-        $table->id();
-        $table->string('first_name');
-        $table->string('last_name');
-        $table->string('email')->unique();
-        $table->foreignId('department_id')->constrained()->onDelete('cascade');
-        $table->string('position');
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('department_id')
+                ->constrained('departments')
+                ->cascadeOnDelete();
+
+            $table->string('employee_number', 30)->unique();
+            $table->string('first_name', 80);
+            $table->string('last_name', 80);
+            $table->string('email')->unique();
+            $table->string('position', 100);
+            $table->enum('employment_status', ['Active', 'Inactive']);
+
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::get('/students', function () {
 // Week 6 - Authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+// Department API - Public Read Route
+Route::get('/departments', [DepartmentController::class, 'index']);
 
 // Employee API - Public Read Routes
 Route::get('/employees', [EmployeeController::class, 'index']);
