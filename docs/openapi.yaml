@@ -1,0 +1,105 @@
+openapi: 3.0.3
+
+info:
+  title: Employee Management API
+  description: API for managing employee information.
+  version: 1.0.0
+
+servers:
+  - url: http://127.0.0.1:8000/api/v1
+
+paths:
+
+  /employees:
+    get:
+      summary: Get all employees
+      responses:
+        '200':
+          description: Employees retrieved successfully
+
+    post:
+      summary: Create an employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                department:
+                  type: string
+                position:
+                  type: string
+      responses:
+        '201':
+          description: Employee created successfully
+        '422':
+          description: Validation error
+
+  /employees/{id}:
+    get:
+      summary: Get one employee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee retrieved successfully
+        '404':
+          description: Employee not found
+
+    put:
+      summary: Update an employee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                department:
+                  type: string
+                position:
+                  type: string
+      responses:
+        '200':
+          description: Employee updated successfully
+        '404':
+          description: Employee not found
+        '422':
+          description: Validation error
+
+    delete:
+      summary: Delete an employee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee deleted successfully
+        '404':
+          description: Employee not found
